@@ -13,9 +13,12 @@ app.use(cors({
 // app.use(cookieParser());
 
 // routes
-//import userRouter from "./routes/user.routes.js";
+import dashboardRoutes from "./routes/dashboard.routes.js";
 
 //app.use("/api/v1/users", userRouter);
+
+app.use("/dashboard", dashboardRoutes);
+
 
 app.get("/work", (req, res) => {
   res.status(200).json({

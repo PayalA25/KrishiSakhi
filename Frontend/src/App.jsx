@@ -1,16 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home"; // import Home page
+import Layout from "./components/Layout";
 
 function App() {
- 
-
   return (
-    <>
-    <h1 className='bg-orange-500'>Krishi Sakhi</h1>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/dashboard"
+          element={
+            <Layout>
+              <Dashboard />
+            </Layout>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
