@@ -1,4 +1,12 @@
+import { getHomeData } from "../services";
+import { useEffect } from "react";
+
 const Home = () => {
+  useEffect(() => {
+    getHomeData()
+      .then((res) => console.log(res.data))
+      .catch(console.error);
+  }, []);
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">Welcome to Krishi Sakhi 🌾</h1>
