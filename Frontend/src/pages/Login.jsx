@@ -21,28 +21,62 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md bg-white rounded-xl shadow-lg p-8"
+      >
+        <h2 className="text-2xl font-bold text-green-700 text-center mb-6">
+          Welcome Back 🌱
+        </h2>
 
-      <input
-        placeholder="Mobile"
-        value={form.mobile}
-        onChange={(e) =>
-          setForm({ ...form, mobile: e.target.value })
-        }
-      />
+        <p className="text-sm text-gray-500 text-center mb-8">
+          Login to your KrishiSakshi account
+        </p>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={form.password}
-        onChange={(e) =>
-          setForm({ ...form, password: e.target.value })
-        }
-      />
+        {/* Mobile */}
+        <input
+          type="tel"
+          placeholder="Mobile Number"
+          value={form.mobile}
+          onChange={(e) => setForm({ ...form, mobile: e.target.value })}
+          className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-green-500"
+          required
+        />
 
-      <button type="submit">Login</button>
-    </form>
+        {/* Password */}
+        <input
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          className="w-full mb-6 px-4 py-2 border border-gray-300 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-green-500"
+          required
+        />
+
+        {/* Button */}
+        <button
+          type="submit"
+          className="w-full bg-green-600 text-white py-2 rounded-lg
+                     hover:bg-green-700 transition duration-200"
+        >
+          Login
+        </button>
+
+        {/* Register Redirect */}
+        <p className="text-sm text-gray-600 text-center mt-6">
+          Don’t have an account?{" "}
+          <span
+            onClick={() => navigate("/register")}
+            className="text-green-600 cursor-pointer hover:underline"
+          >
+            Register
+          </span>
+        </p>
+      </form>
+    </div>
   );
 };
 

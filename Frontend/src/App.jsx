@@ -1,16 +1,18 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Layout from "./components/Layout.jsx";
+import Home from "./pages/Home.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import About from "./pages/About.jsx";
+import Features from "./pages/Features.jsx";
+import Contact from "./pages/Contact.jsx";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Home routes */}
+        {/* Layout pages */}
         <Route
           path="/"
           element={
@@ -19,20 +21,34 @@ function App() {
             </Layout>
           }
         />
+
         <Route
-          path="/home"
+          path="/about"
           element={
             <Layout>
-              <Home />
+              <About />
             </Layout>
           }
         />
 
-        {/* Authentication routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/features"
+          element={
+            <Layout>
+              <Features />
+            </Layout>
+          }
+        />
 
-        {/* Dashboard route */}
+        <Route
+          path="/contact"
+          element={
+            <Layout>
+              <Contact />
+            </Layout>
+          }
+        />
+
         <Route
           path="/dashboard"
           element={
@@ -41,6 +57,10 @@ function App() {
             </Layout>
           }
         />
+
+        {/* Auth pages */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
