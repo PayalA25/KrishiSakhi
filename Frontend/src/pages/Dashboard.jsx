@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [data, setData] = useState({
     temperature: 30,
     humidity: 60,
-    rainfall: 10,
+    rainfall: 100,
     cropHealth: "Good",
     todaysTask: "Check soil",
     cropGrowth: "Stage 2",
