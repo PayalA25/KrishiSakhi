@@ -36,6 +36,18 @@ fertilizer_encoder = joblib.load(
 )
 
 # =========================================
+# Home Route
+# =========================================
+
+@app.route("/")
+
+def home():
+
+    return jsonify({
+        "message": "Krishi Sakhi Backend Running Successfully"
+    })
+
+# =========================================
 # Crop Prediction Route
 # =========================================
 
@@ -43,23 +55,33 @@ fertilizer_encoder = joblib.load(
 
 def predict_crop():
 
-    data = request.json
+    try:
 
-    features = np.array([[
-        data["N"],
-        data["P"],
-        data["K"],
-        data["temperature"],
-        data["humidity"],
-        data["ph"],
-        data["rainfall"]
-    ]])
+        data = request.json
 
-    prediction = crop_model.predict(features)
+        features = np.array([[
 
-    return jsonify({
-        "recommended_crop": prediction[0]
-    })
+            float(data["N"]),
+            float(data["P"]),
+            float(data["K"]),
+            float(data["temperature"]),
+            float(data["humidity"]),
+            float(data["ph"]),
+            float(data["rainfall"])
+
+        ]])
+
+        prediction = crop_model.predict(features)
+
+        return jsonify({
+            "recommended_crop": prediction[0]
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "error": str(e)
+        })
 
 # =========================================
 # Fertilizer Prediction Route
@@ -69,40 +91,49 @@ def predict_crop():
 
 def predict_fertilizer():
 
-    data = request.json
+    try:
 
-    soil = soil_encoder.transform([
-        data["soilType"]
-    ])[0]
+        data = request.json
 
-    crop = crop_encoder.transform([
-        data["cropType"]
-    ])[0]
+        soil = soil_encoder.transform([
+            data["soilType"]
+        ])[0]
 
-    features = np.array([[
-        data["temperature"],
-        data["humidity"],
-        data["moisture"],
-        soil,
-        crop,
-        data["nitrogen"],
-        data["potassium"],
-        data["phosphorous"]
-    ]])
+        crop = crop_encoder.transform([
+            data["cropType"]
+        ])[0]
 
-    prediction = fertilizer_model.predict(
-        features
-    )
+        features = np.array([[
 
-    fertilizer = fertilizer_encoder.inverse_transform(
-        prediction
-    )
+            float(data["temperature"]),
+            float(data["humidity"]),
+            float(data["moisture"]),
+            soil,
+            crop,
+            float(data["nitrogen"]),
+            float(data["potassium"]),
+            float(data["phosphorous"])
 
-    return jsonify({
-        "recommended_fertilizer": fertilizer[0]
-    })
+        ]])
 
-# =========================================
+        prediction = fertilizer_model.predict(
+            features
+        )
+
+        fertilizer = fertilizer_encoder.inverse_transform(
+            prediction
+        )
+
+        return jsonify({
+            "recommended_fertilizer": fertilizer[0]
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "error": str(e)
+        })
+
 # =========================================
 # Irrigation Prediction Route
 # =========================================
@@ -111,49 +142,67 @@ def predict_fertilizer():
 
 def predict_irrigation():
 
-    data = request.json
+    try:
 
-    temperature = data["temperature"]
-    humidity = data["humidity"]
-    rainfall = data["rainfall"]
-    moisture = data["moisture"]
+        data = request.json
 
-    # Rule-Based Logic
+        temperature = float(data["temperature"])
+        humidity = float(data["humidity"])
+        rainfall = float(data["rainfall"])
+        moisture = float(data["moisture"])
 
-    if temperature > 35 and humidity < 40:
-        
-        recommendation = (
-            "Water crops every 1 day"
-        )
+        # Rule-Based Logic
 
-    elif rainfall > 200:
+        if temperature > 35 and humidity < 40:
 
-        recommendation = (
-            "No irrigation needed"
-        )
+            recommendation = (
+                "Water crops every 1 day"
+            )
 
-    elif moisture < 30:
+        elif rainfall > 200:
 
-        recommendation = (
-            "Water crops every 2 days"
-        )
+            recommendation = (
+                "No irrigation needed"
+            )
 
-    elif humidity > 80:
+        elif moisture < 30:
 
-        recommendation = (
-            "Water crops every 5 days"
-        )
+            recommendation = (
+                "Water crops every 2 days"
+            )
 
-    else:
+        elif humidity > 80:
 
-        recommendation = (
-            "Water crops every 3 days"
-        )
+            recommendation = (
+                "Water crops every 5 days"
+            )
 
-    return jsonify({
-        "irrigation_recommendation":
-        recommendation
-    })
+        else:
+
+            recommendation = (
+                "Water crops every 3 days"
+            )
+
+        return jsonify({
+            "irrigation_recommendation":
+            recommendation
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "error": str(e)
+        })
+
+# =========================================
+# Run Flask App
+# =========================================
 
 if __name__ == "__main__":
-    app.run(debug=True)
+
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=True,
+        use_reloader=False
+    )

@@ -29,7 +29,7 @@ const Navbar = () => {
         {/* NAV LINKS */}
         <div className="flex items-center gap-6 text-sm">
           <Link to="/" className={navLink("/")}>Home</Link>
-          <Link to="/about" className={navLink("/about")}>About</Link>
+          <Link to="/about" className={navLink("/about")}>GovSchema</Link>
           <Link to="/features" className={navLink("/features")}>Features</Link>
           <Link to="/dashboard" className={navLink("/dashboard")}>Dashboard</Link>
           <Link to="/contact" className={navLink("/contact")}>Contact</Link>
