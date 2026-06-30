@@ -1,4 +1,4 @@
-# 🌱 KrishiSakshu
+# 🌱 KrishiSakhi
 
 KrishiSakshu is a full-stack web application designed to empower farmers by providing a digital platform for managing agricultural information and accessing essential farming resources. The application offers a user-friendly interface for efficient farm management and aims to promote smart and sustainable agriculture.
 
